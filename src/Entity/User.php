@@ -8,14 +8,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *
  *     attributes={"access_control"="is_granted('ROLE_USER')"},
  *     collectionOperations={
  *         "get",
  *         "post"={"access_control"="is_granted('ROLE_USER')",
  *         "access_control_message"="Only admins and customers can add users."},
  *         "post"={
- *             "denormalization_context"={"groups"={"post"}}}
+ *             "denormalization_context"={"groups"={"postUser"}}}
  *     },
  *     itemOperations={
  *         "get"={"access_control"="is_granted('ROLE_USER')"}
@@ -35,13 +34,13 @@ class User
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"get", "post"})
+     * @Groups({"get", "postUser"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"get", "post"})
+     * @Groups({"get", "postUser"})
      */
     private $email;
 
@@ -54,7 +53,7 @@ class User
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Customer", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"get", "post"})
+     * @Groups({"get"})
      */
     private $customer;
 

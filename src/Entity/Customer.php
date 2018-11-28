@@ -7,13 +7,17 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *     attributes={"access_control"="is_granted('ROLE_USER')"},
  *     collectionOperations={
  *         "get",
- *         "post"={"access_control"="is_granted('ROLE_ADMIN')", "access_control_message"="Only admins can add customers."}
+ *         "post"={"access_control"="is_granted('ROLE_ADMIN')",
+ *         "access_control_message"="Only admins can add customers."},
+ *         "post"={
+ *             "denormalization_context"={"groups"={"postCustomer"}}}
  *     },
  *     itemOperations={
  *         "get"={"access_control"="is_granted('ROLE_USER')"}
@@ -27,11 +31,13 @@ class Customer implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"get", "postCustomer"})
      */
     private $username;
 
@@ -43,6 +49,8 @@ class Customer implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"postCustomer"})
+     *
      */
     private $password;
 
@@ -155,6 +163,11 @@ class Customer implements UserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getUserObject()
+    {
         return $this;
     }
 }
