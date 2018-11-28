@@ -6,7 +6,16 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_USER')"},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"access_control"="is_granted('ROLE_ADMIN')", "access_control_message"="Only admins can add customers."}
+ *     },
+ *     itemOperations={
+ *         "get"={"access_control"="is_granted('ROLE_USER')"}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\PhoneRepository")
  */
 class Phone
@@ -47,6 +56,11 @@ class Phone
      * @ORM\Column(type="datetime")
      */
     private $availableAt;
+
+    public function __construct()
+    {
+        $this->availableAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

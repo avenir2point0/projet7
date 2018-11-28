@@ -9,7 +9,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     attributes={"access_control"="is_granted('ROLE_USER')"},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"access_control"="is_granted('ROLE_ADMIN')", "access_control_message"="Only admins can add customers."}
+ *     },
+ *     itemOperations={
+ *         "get"={"access_control"="is_granted('ROLE_USER')"}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
  */
 class Customer implements UserInterface
@@ -38,7 +47,7 @@ class Customer implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="customer", cascade={"remove"})
      */
     private $users;
 
@@ -75,7 +84,6 @@ class Customer implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
