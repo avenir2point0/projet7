@@ -8,16 +8,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_USER')"},
  *     collectionOperations={
- *         "get",
- *         "post"={"access_control"="is_granted('ROLE_USER')",
- *         "access_control_message"="Only admins and customers can add users."},
+ *         "get"={
+ *            "access_control"="is_granted('ROLE_USER')",
+ *            "swagger_context"={"summary"="Permet de selectionner la liste des utilisateurs"},
+ *            "access_control_message"="Only admins and customers can add users."},
  *         "post"={
- *             "denormalization_context"={"groups"={"postUser"}}}
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "swagger_context"={"summary"="Permet de créer un utilisateur"},
+ *             "access_control_message"="Only admins and customers can add users.",
+ *             "denormalization_context"={"groups"={"postUser"}}
+ *         },
  *     },
  *     itemOperations={
- *         "get"={"access_control"="is_granted('ROLE_USER')"}
+ *         "get"={"access_control"="is_granted('ROLE_USER')",
+ *                "swagger_context"={"summary"="Permet de selectionner un utilisateur"}
+ *          },
+ *         "delete"={"access_control"="is_granted('ROLE_USER')",
+ *                  "swagger_context"={"summary"="Permet de supprimer un utilisateur"}
+ *          }
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
