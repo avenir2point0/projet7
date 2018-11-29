@@ -38,5 +38,8 @@ services:
     App\EventListener\UserCreationListener:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+
+    App\Doctrine\CurrentUserExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection, priority: 9 }
+            - { name: api_platform.doctrine.orm.query_extension.item }
