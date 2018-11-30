@@ -15,7 +15,7 @@ class PhoneFixtures extends Fixture
         $phone->setBrand('Apple');
         $phone->setWeight(850);
         $phone->setDas('99');
-        $phone->setDescription('Cet Iphone est comme les autres est trop cher.');
+        $phone->setDescription('Cet Iphone est comme les autres, il est trop cher.');
         $manager->persist($phone);
 
         $manager->flush();

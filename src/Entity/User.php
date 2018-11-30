@@ -37,25 +37,23 @@ class User
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"get"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Groups({"get", "postUser"})
+     * @Groups({"postUser"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"get", "postUser"})
+     * @Groups({"postUser"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"get"})
      */
     private $createdAt;
 

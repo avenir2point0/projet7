@@ -11,16 +11,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     attributes={"access_control"="is_granted('ROLE_USER')"},
  *     collectionOperations={
- *         "get",
- *         "post"={"access_control"="is_granted('ROLE_ADMIN')",
- *         "access_control_message"="Only admins can add customers."},
+ *         "get"={
+ *            "access_control"="is_granted('ROLE_ADMIN')",
+ *            "swagger_context"={"summary"="Permet de selectionner la liste des clients"},
+ *            "access_control_message"="Only admins can see customers.",
+ *            "normalization_context"={"groups"={"getCustomer"}}},
  *         "post"={
- *             "denormalization_context"={"groups"={"postCustomer"}}}
+ *             "access_control"="is_granted('ROLE_ADMIN')",
+ *             "swagger_context"={"summary"="Permet de créer un client"},
+ *             "access_control_message"="Only admins can create customers.",
+ *             "denormalization_context"={"groups"={"postCustomer"}}
+ *         },
  *     },
  *     itemOperations={
- *         "get"={"access_control"="is_granted('ROLE_USER')"}
+ *         "get"={"access_control"="is_granted('ROLE_ADMIN')",
+ *                "access_control_message"="Only admins can select customers.",
+ *                "swagger_context"={"summary"="Permet de selectionner un client par son id"},
+ *                "normalization_context"={"groups"={"getCustomer"}}
+ *          },
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
@@ -31,13 +40,13 @@ class Customer implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"get"})
+     * @Groups({"getCustomer"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"get", "postCustomer"})
+     * @Groups({"postCustomer", "getCustomer"})
      */
     private $username;
 
@@ -49,7 +58,7 @@ class Customer implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups({"postCustomer"})
+     * @Groups({"postCustomer", "getCustomer"})
      *
      */
     private $password;

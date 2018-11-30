@@ -4,15 +4,27 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *     collectionOperations={
- *         "get",
- *         "post"={"access_control"="is_granted('ROLE_ADMIN')", "access_control_message"="Only admins can add customers."}
+ *         "get"={
+ *            "access_control"="is_granted('ROLE_USER')",
+ *            "swagger_context"={"summary"="Permet de selectionner la liste des téléhpones"},
+ *            "access_control_message"="Only authentified customers can see phones."},
+ *         "post"={
+ *             "access_control"="is_granted('ROLE_ADMIN')",
+ *             "swagger_context"={"summary"="Permet de créer un téléphone"},
+ *             "access_control_message"="Only admins can add phones.",
+ *             "denormalization_context"={"groups"={"postPhone"}}
+ *         },
  *     },
  *     itemOperations={
- *         "get"={"access_control"="is_granted('ROLE_USER')"}
+ *         "get"={"access_control"="is_granted('ROLE_USER')",
+ *                "access_control_message"="Only authentified customers can see phones.",
+ *                "swagger_context"={"summary"="Permet de selectionner un téléphone par son id"}
+ *          },
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\PhoneRepository")
@@ -28,26 +40,31 @@ class Phone
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"postPhone"})
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"postPhone"})
      */
     private $brand;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"postPhone"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"postPhone"})
      */
     private $weight;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"postPhone"})
      */
     private $das;
 
