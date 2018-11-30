@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -41,30 +42,40 @@ class Phone
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"postPhone"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\Length( min = 2, max = 50)
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"postPhone"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\Length( min = 2, max = 50)
      */
     private $brand;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"postPhone"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\Length( min = 2, max = 600)
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"postPhone"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\Range( min = 50, max = 2550)
      */
     private $weight;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"postPhone"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\Range( min = 10, max = 550)
      */
     private $das;
 

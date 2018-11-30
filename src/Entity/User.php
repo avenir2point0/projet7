@@ -5,6 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -29,6 +32,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          }
  *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"customer": "exact"})
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User
@@ -43,12 +47,15 @@ class User
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"postUser"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\Length( min = 2, max = 50)
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"postUser"})
+     * @Assert\NotBlank(message="Ce champ doit être rempli")
      */
     private $email;
 
