@@ -7,3 +7,36 @@ api_platform:
             apiKey:
                 name: Authorization
                 type: header
+
+    collection:
+        order: 'DESC'
+
+        order_parameter_name: 'order'
+
+        pagination:
+            enabled: true
+
+            client_enabled: false
+
+            client_items_per_page: false
+
+            items_per_page: 15
+
+            maximum_items_per_page: 15
+
+            page_parameter_name: 'page'
+
+            enabled_parameter_name: 'pagination'
+
+            items_per_page_parameter_name: 'itemsPerPage'
+
+    http_cache:
+        etag: true
+
+        max_age: 3600
+
+        shared_max_age: 3600
+
+        vary: ['Accept']
+
+        public: ~
