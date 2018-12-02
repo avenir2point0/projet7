@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ApiResource(
@@ -47,7 +48,7 @@ class Customer implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"postCustomer", "getCustomer"})
+     * @Groups({"postCustomer", "getCustomer", "getUser"})
      * @Assert\NotBlank(message="Ce champ doit être rempli")
      * @Assert\Length( min = 2, max = 50)
      */
