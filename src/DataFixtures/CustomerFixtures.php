@@ -26,7 +26,7 @@ class CustomerFixtures extends AbstractFixture
         $customer3->setUsername('customer2');
         $customer3->setPassword('user');
         $customer3->setRoles(["ROLE_USER"]);
-        $manager->persist($customer2);
+        $manager->persist($customer3);
         $manager->flush();
 
         $this->addReference('custom1', $customer1);

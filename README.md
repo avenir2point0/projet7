@@ -27,6 +27,10 @@ Puis les migrations :
 Et les fixtures :
 
     php bin/console doctrine:fixtures:load
+
+NB : si vous voulez profitez des fixtures, vous devez momentanement
+désactiver le service App\EventListener\UserCreationListener dans le fichier
+services.yaml.
     
 ## 5. Jeton JWT
 

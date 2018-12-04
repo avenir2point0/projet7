@@ -9,37 +9,17 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class UserFixtures extends AbstractFixture implements DependentFixtureInterface
 {
+    private $username = ['Pierre', 'Paul', 'Jacque', 'Marie', 'Cathie', 'Geroge'];
+    private $email = ['testmail@test.fr', '2emetestMail@test.fr', 'dernierTestMail@test.fr'];
     public function load(ObjectManager $manager)
     {
-        $user = new User();
-        $user->setUsername('Pierre')
-            ->setEmail('pierre@testfai.fr')
-            ->setCustomer($this->getReference('custom2'));
-        $manager->persist($user);
-
-        $user1 = new User();
-        $user1->setUsername('Paul')
-            ->setEmail('paul@testfai.fr')
-            ->setCustomer($this->getReference('custom2'));
-        $manager->persist($user1);
-
-        $user2 = new User();
-        $user2->setUsername('Jacques')
-            ->setEmail('jacques@testfai.fr')
-            ->setCustomer($this->getReference('custom3'));
-        $manager->persist($user2);
-
-        $user3 = new User();
-        $user3->setUsername('Jean-Pierre')
-            ->setEmail('jp@testfai.fr')
-            ->setCustomer($this->getReference('custom3'));
-        $manager->persist($user3);
-
-        $user4 = new User();
-        $user4->setUsername('Jean-Jean')
-            ->setEmail('jj@testfai.fr')
-            ->setCustomer($this->getReference('custom3'));
-        $manager->persist($user4);
+        for ($i = 0; $i < 50; $i++) {
+            $user = new User();
+            $user->setUsername($this->username[rand(0, 5)])
+                ->setEmail($this->email[rand(0, 2)])
+                ->setCustomer($this->getReference('custom'.rand(2, 3)));
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }

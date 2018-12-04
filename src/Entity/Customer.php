@@ -69,7 +69,7 @@ class Customer implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="customer", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="customer", cascade={"persist", "remove"})
      */
     private $users;
 
