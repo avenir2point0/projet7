@@ -47,7 +47,7 @@ class Customer implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=50, unique=true)
      * @Groups({"postCustomer", "getCustomer", "getUser"})
      * @Assert\NotBlank(message="Ce champ doit être rempli")
      * @Assert\Length( min = 2, max = 50)

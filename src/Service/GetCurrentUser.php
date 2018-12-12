@@ -9,7 +9,6 @@
 namespace App\Service;
 
 
-use App\Entity\Customer;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class GetCurrentUser
