@@ -47,7 +47,7 @@ class User
     /**
      * @ORM\Column(type="string", length=50)
      * @Groups({"postUser"})
-     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\NotBlank(message="Le champ username doit être rempli")
      * @Assert\Length( min = 2, max = 50)
      */
     private $username;
@@ -55,7 +55,7 @@ class User
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"postUser"})
-     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\NotBlank(message="Le champ email doit être rempli")
      */
     private $email;
 

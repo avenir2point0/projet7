@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ApiResource(
@@ -49,7 +48,7 @@ class Customer implements UserInterface
     /**
      * @ORM\Column(type="string", length=50, unique=true)
      * @Groups({"postCustomer", "getCustomer", "getUser"})
-     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\NotBlank(message="Ce champ username doit être rempli")
      * @Assert\Length( min = 2, max = 50)
      */
     private $username;
@@ -63,7 +62,7 @@ class Customer implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Groups({"postCustomer", "getCustomer"})
-     * @Assert\NotBlank(message="Ce champ doit être rempli")
+     * @Assert\NotBlank(message="Ce champ mot de passe doit être rempli")
      * @Assert\Length( min = 2, max = 50)
      */
     private $password;
